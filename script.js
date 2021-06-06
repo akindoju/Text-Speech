@@ -70,8 +70,6 @@ const data = [
 
 data.forEach(createBox);
 
-const message = new SpeechSynthesisUtterance();
-
 function createBox(item) {
   const box = document.createElement('div');
 
@@ -94,13 +92,7 @@ function createBox(item) {
   main.appendChild(box);
 }
 
-function setTextMessage(text) {
-  message.text = text;
-}
-
-function speakText() {
-  speechSynthesis.speak(message);
-}
+const message = new SpeechSynthesisUtterance();
 
 let voices = [];
 
@@ -117,8 +109,16 @@ function getVoices() {
   });
 }
 
-function setVoice(e) {
-  message.voice = voices.find((voice) => voice.name === e.target.value);
+function setTextMessage(text) {
+  message.text = text;
+}
+
+function speakText() {
+  speechSynthesis.speak(message);
+}
+
+function setVoice({ target }) {
+  message.voice = voices.find((voice) => voice.name === target.value);
 }
 
 speechSynthesis.addEventListener('voiceschanged', getVoices);
